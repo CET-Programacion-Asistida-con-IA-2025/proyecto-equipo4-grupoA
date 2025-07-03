@@ -222,32 +222,140 @@ function guardarRegistro() {
 }
 
 // =======================
-// RESPIRACIÓN GUIADA
-// =======================
-const divResp = document.getElementById('respiracion');
-if (divResp) {
-  divResp.innerHTML = `
-    <h3>Ejercicio de respiración</h3>
-    <p>Duración: 1 minuto</p>
-    <button onclick="respirar()">Iniciar</button>
-    <p id="guia-respiracion"></p>
-  `;
-}
-
-function respirar() {
-  let fases = ["Inhalá...", "Sostené...", "Exhalá...", "Esperá..."];
-  let i = 0;
-  const guia = document.getElementById('guia-respiracion');
-  const interval = setInterval(() => {
-    guia.textContent = fases[i % fases.length];
-    i++;
-    if (i > 16) {
-      clearInterval(interval);
-      guia.textContent = "Finalizado. ¿Cómo te sentís?";
-      showNotification("Ejercicio completado 💨");
+    // RESPIRACIÓN GUIADA ANIMADA
+    // =======================
+    const divResp = document.getElementById('respiracion');
+    if (divResp) {
+      divResp.innerHTML = `
+        <h3>Ejercicio de respiración guiada</h3>
+        <p>Duración: 2 minutos • Patrón: 4-4-4-4 (Inhalá-Sostené-Exhalá-Pausa)</p>
+        <div class="breathing-container">
+          <div class="breathing-circle" id="breathing-circle"></div>
+          <div class="breathing-text" id="breathing-text">🌸</div>
+        </div>
+        <button id="breathing-btn" onclick="iniciarRespiracion()">Iniciar respiración</button>
+        <p id="guia-respiracion"></p>
+        <div id="breathing-progress" style="display: none;">
+          <div class="progress-bar">
+            <div class="progress-fill" id="breathing-progress-fill"></div>
+          </div>
+          <p id="breathing-counter"></p>
+        </div>
+      `;
     }
-  }, 4000);
-}
+
+    let respiracionActiva = false;
+    let respiracionInterval;
+    let respiracionTimeout;
+
+    function iniciarRespiracion() {
+      if (respiracionActiva) {
+        detenerRespiracion();
+        return;
+      }
+
+      respiracionActiva = true;
+      const btn = document.getElementById('breathing-btn');
+      const circle = document.getElementById('breathing-circle');
+      const text = document.getElementById('breathing-text');
+      const guia = document.getElementById('guia-respiracion');
+      const progress = document.getElementById('breathing-progress');
+      const progressFill = document.getElementById('breathing-progress-fill');
+      const counter = document.getElementById('breathing-counter');
+
+      btn.textContent = 'Detener';
+      btn.style.background = '#ff4c4c';
+      progress.style.display = 'block';
+
+      let ciclo = 0;
+      const totalCiclos = 8; // 2 minutos aproximadamente
+      let fase = 0; // 0: inhalar, 1: sostener, 2: exhalar, 3: pausa
+      const fases = [
+        { nombre: 'Inhalá profundamente...', clase: 'inhale', emoji: '🌬️' },
+        { nombre: 'Sostené el aire...', clase: 'hold', emoji: '⏸️' },
+        { nombre: 'Exhalá lentamente...', clase: 'exhale', emoji: '💨' },
+        { nombre: 'Pausa y relájate...', clase: 'pause', emoji: '🌸' }
+      ];
+
+      function ejecutarFase() {
+        if (!respiracionActiva) return;
+
+        const faseActual = fases[fase];
+        guia.textContent = faseActual.nombre;
+        text.textContent = faseActual.emoji;
+
+        // Remover clases anteriores
+        circle.classList.remove('inhale', 'exhale', 'hold', 'pause');
+        
+        // Aplicar animación según la fase
+        if (fase === 0) { // Inhalar
+          circle.classList.add('inhale');
+        } else if (fase === 2) { // Exhalar
+          circle.classList.add('exhale');
+        }
+
+        // Actualizar progreso
+        const progresoTotal = ((ciclo * 4 + fase + 1) / (totalCiclos * 4)) * 100;
+        progressFill.style.width = progresoTotal + '%';
+        counter.textContent = `Ciclo ${ciclo + 1} de ${totalCiclos}`;
+
+        fase++;
+        if (fase >= 4) {
+          fase = 0;
+          ciclo++;
+        }
+
+        if (ciclo >= totalCiclos) {
+          finalizarRespiracion();
+        } else {
+          respiracionTimeout = setTimeout(ejecutarFase, 4000);
+        }
+      }
+
+      // Iniciar el ejercicio
+      ejecutarFase();
+    }
+
+    function detenerRespiracion() {
+      respiracionActiva = false;
+      clearTimeout(respiracionTimeout);
+      
+      const btn = document.getElementById('breathing-btn');
+      const circle = document.getElementById('breathing-circle');
+      const text = document.getElementById('breathing-text');
+      const guia = document.getElementById('guia-respiracion');
+      const progress = document.getElementById('breathing-progress');
+
+      btn.textContent = 'Iniciar respiración';
+      btn.style.background = '';
+      circle.classList.remove('inhale', 'exhale', 'hold', 'pause');
+      text.textContent = '🌸';
+      guia.textContent = '';
+      progress.style.display = 'none';
+    }
+
+    function finalizarRespiracion() {
+      respiracionActiva = false;
+      const btn = document.getElementById('breathing-btn');
+      const circle = document.getElementById('breathing-circle');
+      const text = document.getElementById('breathing-text');
+      const guia = document.getElementById('guia-respiracion');
+
+      btn.textContent = 'Iniciar respiración';
+      btn.style.background = '';
+      circle.classList.remove('inhale', 'exhale', 'hold', 'pause');
+      text.textContent = '✨';
+      guia.innerHTML = '<strong>¡Ejercicio completado! ¿Te sientes más relajado/a?</strong>';
+      
+      showNotification("Ejercicio de respiración completado 💨✨");
+      
+      // Reset después de 5 segundos
+      setTimeout(() => {
+        text.textContent = '🌸';
+        guia.textContent = '';
+        document.getElementById('breathing-progress').style.display = 'none';
+      }, 5000);
+    }
 
 // =======================
 // YOGA Y SONIDOS
