@@ -108,119 +108,162 @@ function reiniciarTest() {
 mostrarPregunta(); // Lanzamos al inicio
 
 // =======================
-// CALENDARIO EMOCIONAL MEJORADO
-// =======================
-const calendario = document.getElementById('calendario-emocional');
-const hoy = new Date().toISOString().slice(0, 10);
-let emocionSeleccionada = '';
+    // CALENDARIO EMOCIONAL MEJORADO
+    // =======================
+    const calendario = document.getElementById('calendario-emocional');
+    const hoy = new Date().toISOString().slice(0, 10);
+    let emocionSeleccionada = '';
+    let esDiaMenstrual = false;
 
-if (calendario) {
-  calendario.innerHTML = `
-    <h3>Registrar emoción del día</h3>
-    <p>Fecha: ${hoy}</p>
-    <div class="emotion-selector">
-      <p>¿Cómo te sentiste hoy?</p>
-      <div class="emotion-buttons">
-        <button class="emotion-btn" data-emotion="😊 Alegría" onclick="seleccionarEmocion('😊 Alegría', this)">
-          <span class="emotion-icon">😊</span>
-          <span class="emotion-label">Alegría</span>
-        </button>
-        <button class="emotion-btn" data-emotion="😢 Tristeza" onclick="seleccionarEmocion('😢 Tristeza', this)">
-          <span class="emotion-icon">😢</span>
-          <span class="emotion-label">Tristeza</span>
-        </button>
-        <button class="emotion-btn" data-emotion="😰 Ansiedad" onclick="seleccionarEmocion('😰 Ansiedad', this)">
-          <span class="emotion-icon">😰</span>
-          <span class="emotion-label">Ansiedad</span>
-        </button>
-        <button class="emotion-btn" data-emotion="😠 Enojo" onclick="seleccionarEmocion('😠 Enojo', this)">
-          <span class="emotion-icon">😠</span>
-          <span class="emotion-label">Enojo</span>
-        </button>
-        <button class="emotion-btn" data-emotion="😨 Miedo" onclick="seleccionarEmocion('😨 Miedo', this)">
-          <span class="emotion-icon">😨</span>
-          <span class="emotion-label">Miedo</span>
-        </button>
-        <button class="emotion-btn" data-emotion="😌 Calma" onclick="seleccionarEmocion('😌 Calma', this)">
-          <span class="emotion-icon">😌</span>
-          <span class="emotion-label">Calma</span>
-        </button>
-      </div>
-    </div>
-    <div class="notes-section">
-      <label for="nota-dia">Notas personales</label>
-      <textarea id="nota-dia" rows="3" placeholder="¿Qué pasó hoy? ¿Cómo te sentiste?"></textarea>
-    </div>
-    <div class="save-section">
-      <button class="save-btn" onclick="guardarRegistro()" disabled>
-        <span>💾</span> Guardar registro
-      </button>
-      <div id="confirmacion-registro"></div>
-    </div>
-  `;
-}
+    if (calendario) {
+      calendario.innerHTML = `
+        <h3>Registrar emoción del día</h3>
+        <p>Fecha: ${hoy}</p>
+        
+        <!-- Sección de menstruación -->
+        <div class="menstrual-section">
+          <div class="menstrual-toggle">
+            <span>🌸 ¿Es día de menstruación?</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="menstrual-toggle" onchange="toggleMenstrualDay(this)">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="menstrual-info" id="menstrual-info">
+            <div class="cycle-input">
+              <label for="cycle-day">Día del ciclo:</label>
+              <input type="number" id="cycle-day" min="1" max="35" placeholder="Ej: 3">
+            </div>
+            <div class="cycle-input">
+              <label for="symptoms">Síntomas (opcional):</label>
+              <input type="text" id="symptoms" placeholder="Ej: cólicos, dolor de cabeza">
+            </div>
+          </div>
+        </div>
 
-function seleccionarEmocion(emocion, boton) {
-  // Quitar selección anterior
-  document.querySelectorAll('.emotion-btn').forEach(btn => {
-    btn.classList.remove('selected');
-  });
-  
-  // Marcar nueva selección
-  boton.classList.add('selected');
-  emocionSeleccionada = emocion;
-  
-  // Habilitar botón guardar
-  document.querySelector('.save-btn').disabled = false;
-  
-  // Pequeña animación de confirmación
-  boton.style.transform = 'scale(0.95)';
-  setTimeout(() => {
-    boton.style.transform = '';
-  }, 150);
-}
+        <div class="emotion-selector">
+          <p>¿Cómo te sentiste hoy?</p>
+          <div class="emotion-buttons">
+            <button class="emotion-btn" data-emotion="😊 Alegría" onclick="seleccionarEmocion('😊 Alegría', this)">
+              <span class="emotion-icon">😊</span>
+              <span class="emotion-label">Alegría</span>
+            </button>
+            <button class="emotion-btn" data-emotion="😢 Tristeza" onclick="seleccionarEmocion('😢 Tristeza', this)">
+              <span class="emotion-icon">😢</span>
+              <span class="emotion-label">Tristeza</span>
+            </button>
+            <button class="emotion-btn" data-emotion="😰 Ansiedad" onclick="seleccionarEmocion('😰 Ansiedad', this)">
+              <span class="emotion-icon">😰</span>
+              <span class="emotion-label">Ansiedad</span>
+            </button>
+            <button class="emotion-btn" data-emotion="😠 Enojo" onclick="seleccionarEmocion('😠 Enojo', this)">
+              <span class="emotion-icon">😠</span>
+              <span class="emotion-label">Enojo</span>
+            </button>
+            <button class="emotion-btn" data-emotion="😨 Miedo" onclick="seleccionarEmocion('😨 Miedo', this)">
+              <span class="emotion-icon">😨</span>
+              <span class="emotion-label">Miedo</span>
+            </button>
+            <button class="emotion-btn" data-emotion="😌 Calma" onclick="seleccionarEmocion('😌 Calma', this)">
+              <span class="emotion-icon">😌</span>
+              <span class="emotion-label">Calma</span>
+            </button>
+          </div>
+        </div>
+        <div class="notes-section">
+          <label for="nota-dia">Notas personales</label>
+          <textarea id="nota-dia" rows="3" placeholder="¿Qué pasó hoy? ¿Cómo te sentiste?"></textarea>
+        </div>
+        <div class="save-section">
+          <button class="save-btn" onclick="guardarRegistro()" disabled>
+            <span>💾</span> Guardar registro
+          </button>
+          <div id="confirmacion-registro"></div>
+        </div>
+      `;
+    }
 
-function guardarRegistro() {
-  if (!emocionSeleccionada) {
-    showNotification("Por favor selecciona una emoción");
-    return;
-  }
-  
-  const nota = document.getElementById('nota-dia').value;
-  const registro = {
-    emocion: emocionSeleccionada,
-    nota: nota,
-    fecha: hoy
-  };
-  
-  // Aquí normalmente guardarías en una base de datos
-  // Por ahora simularemos el guardado
-  console.log('Registro guardado:', registro);
-  
-  // Mostrar confirmación
-  const confirmacion = document.getElementById('confirmacion-registro');
-  confirmacion.innerHTML = `
-    <div class="success-message">
-      <span>✅</span>
-      <p>¡Registro guardado exitosamente!</p>
-      <small>Emoción: ${emocionSeleccionada}</small>
-    </div>
-  `;
-  
-  // Deshabilitar botón después de guardar
-  document.querySelector('.save-btn').disabled = true;
-  document.querySelector('.save-btn').textContent = '✅ Guardado';
-  
-  showNotification("Registro emocional guardado 💛");
-  
-  // Reset após 3 segundos
-  setTimeout(() => {
-    document.querySelector('.save-btn').disabled = false;
-    document.querySelector('.save-btn').innerHTML = '<span>💾</span> Guardar registro';
-    confirmacion.innerHTML = '';
-  }, 3000);
-}
+    function toggleMenstrualDay(checkbox) {
+      esDiaMenstrual = checkbox.checked;
+      const menstrualInfo = document.getElementById('menstrual-info');
+      if (esDiaMenstrual) {
+        menstrualInfo.classList.add('active');
+      } else {
+        menstrualInfo.classList.remove('active');
+      }
+    }
 
+    function seleccionarEmocion(emocion, boton) {
+      // Quitar selección anterior
+      document.querySelectorAll('.emotion-btn').forEach(btn => {
+        btn.classList.remove('selected');
+      });
+      
+      // Marcar nueva selección
+      boton.classList.add('selected');
+      emocionSeleccionada = emocion;
+      
+      // Habilitar botón guardar
+      document.querySelector('.save-btn').disabled = false;
+      
+      // Pequeña animación de confirmación
+      boton.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        boton.style.transform = '';
+      }, 150);
+    }
+
+    function guardarRegistro() {
+      if (!emocionSeleccionada) {
+        showNotification("Por favor selecciona una emoción");
+        return;
+      }
+      
+      const nota = document.getElementById('nota-dia').value;
+      const cycleDay = document.getElementById('cycle-day').value;
+      const symptoms = document.getElementById('symptoms').value;
+      
+      const registro = {
+        emocion: emocionSeleccionada,
+        nota: nota,
+        fecha: hoy,
+        menstruacion: esDiaMenstrual,
+        diaCiclo: esDiaMenstrual ? cycleDay : null,
+        sintomas: esDiaMenstrual ? symptoms : null
+      };
+      
+      // Aquí normalmente guardarías en una base de datos
+      console.log('Registro guardado:', registro);
+      
+      // Mostrar confirmación
+      const confirmacion = document.getElementById('confirmacion-registro');
+      let mensajeConfirmacion = `
+        <div class="success-message">
+          <span>✅</span>
+          <p>¡Registro guardado exitosamente!</p>
+          <small>Emoción: ${emocionSeleccionada}</small>
+      `;
+      
+      if (esDiaMenstrual) {
+        mensajeConfirmacion += `<small><br>🌸 Día de menstruación registrado</small>`;
+      }
+      
+      mensajeConfirmacion += `</div>`;
+      confirmacion.innerHTML = mensajeConfirmacion;
+      
+      // Deshabilitar botón después de guardar
+      document.querySelector('.save-btn').disabled = true;
+      document.querySelector('.save-btn').textContent = '✅ Guardado';
+      
+      showNotification("Registro emocional guardado 💛");
+      
+      // Reset após 3 segundos
+      setTimeout(() => {
+        document.querySelector('.save-btn').disabled = false;
+        document.querySelector('.save-btn').innerHTML = '<span>💾</span> Guardar registro';
+        confirmacion.innerHTML = '';
+      }, 3000);
+    }
 // =======================
     // RESPIRACIÓN GUIADA ANIMADA
     // =======================
