@@ -225,7 +225,7 @@ button:hover,
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Ejercicio de respiración animado */
+ /* Ejercicio de respiración animado */
     #respiracion {
       text-align: center;
       margin-top: 3rem;
@@ -280,21 +280,7 @@ button:hover,
       font-weight: bold;
       min-height: 30px;
     }
-
-    /* Barra de progreso */
-    .progress-bar {
-      width: 100%;
-      height: 10px;
-      background: var(--cream);
-      border-radius: 20px;
-      overflow: hidden;
-      margin: 1rem 0;
-    }
-    .progress-fill {
-      height: 100%;
-      background: var(--primary-purple);
-      transition: width 0.3s ease;
-    }
+  
 
 /* Barra de progreso */
 .progress-bar {
@@ -310,3 +296,195 @@ button:hover,
   background: var(--primary-purple);
   transition: width 0.3s ease;
 }
+/* Calendario emocional mejorado */
+    .emotion-selector {
+      margin: 2rem 0;
+    }
+
+    .emotion-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .emotion-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      background: var(--white);
+      border: 2px solid var(--primary-purple);
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      min-height: 80px;
+    }
+
+    .emotion-btn:hover {
+      background: var(--cream);
+      transform: translateY(-2px);
+    }
+
+    .emotion-btn.selected {
+      background: var(--primary-purple);
+      color: white;
+      border-color: var(--primary-purple);
+    }
+
+    .emotion-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .emotion-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .notes-section {
+      margin: 2rem 0;
+    }
+
+    .notes-section label {
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .save-section {
+      margin-top: 2rem;
+    }
+
+    .save-btn {
+      background: var(--primary-purple);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+
+    .save-btn:hover:not(:disabled) {
+      background: var(--peach);
+      transform: scale(1.02);
+    }
+
+    .save-btn:disabled {
+      background: var(--text-medium);
+      cursor: not-allowed;
+    }
+
+    .success-message {
+      background: #d4edda;
+      color: #155724;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    /* Sección de menstruación */
+    .menstrual-section {
+      background: var(--menstrual-color);
+      padding: 1.5rem;
+      border-radius: 15px;
+      margin: 2rem 0;
+    }
+
+    .menstrual-toggle {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #ff69b4;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .menstrual-info {
+      display: none;
+      margin-top: 1rem;
+    }
+
+    .menstrual-info.active {
+      display: block;
+    }
+
+    .cycle-input {
+      margin: 1rem 0;
+    }
+
+    .cycle-input label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .cycle-input input {
+      width: 100%;
+      padding: 0.8rem;
+      border: 2px solid #ff69b4;
+      border-radius: 10px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+      .emotion-buttons {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .breathing-container {
+        width: 150px;
+        height: 150px;
+      }
+      
+      .hero-title {
+        font-size: 1.8rem;
+      }
+    } 
+    
