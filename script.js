@@ -50,17 +50,25 @@ function showEmergencyContacts() {
 }
 
 // =======================
-// TEST EMOCIONAL BÁSICO
+// TEST EMOCIONAL NUEVO COMPLETO
 // =======================
+
 const preguntas = [
-  {
-    pregunta: "¿Cómo te sentís ahora?",
-    opciones: ["😊 Bien", "😢 Triste", "😰 Ansioso", "😠 Enojado", "😨 Asustado"]
-  },
-  {
-    pregunta: "¿Cómo fue tu día?",
-    opciones: ["👍 Positivo", "😐 Normal", "👎 Difícil"]
-  }
+  { pregunta: "¿cómo describirías tu nivel de energía?", opciones: ["A. Alta y estable", "B. Baja y sin motivación", "C. Agitada o nerviosa", "D. Cambiante, como una montaña rusa", "E. Cargada, con ganas de explotar"] },
+  { pregunta: "¿Cómo te sientes físicamente?", opciones: ["A. Ligero/a, relajado/a", "B. Cansado/a, sin fuerzas", "C. Tensión en el pecho o estómago", "D. Mareado/a o con presión en la cabeza", "E. Calor en la cara, puños apretados"] },
+  { pregunta: "¿Qué tan fácil es concentrarte hoy?", opciones: ["A. Bastante fácil", "B. Difícil, no tengo energía mental", "C. Estoy distraído/a por preocupaciones", "D. No logro enfocarme por altibajos emocionales", "E. Me distraigo pensando en lo que me molesta"] },
+  { pregunta: "¿Cómo está tu diálogo interno (pensamientos)?", opciones: ["A. Positivo o neutro", "B. Me siento útil o triste", "C. Me preocupo por lo que puede pasar", "D. Me siento confundido/a o inestable", "E. Me critico o pienso en lo que me irrita"] },
+  { pregunta: "¿Tienes ganas de socializar o estar con alguien?", opciones: ["A. Sí, con gusto", "B. No, quiero estar solo/a", "C. No estoy seguro/a, me pone ansioso/a", "D. A ratos quiero, a ratos no", "E. No, porque todo me molesta"] },
+  { pregunta: "¿Qué te provocaría llorar ahora mismo?", opciones: ["A. Nada", "B. El vacío o soledad", "C. El miedo o sensación de no tener control", "D. Mi confusión interna", "E. La frustración o impotencia"] },
+  { pregunta: "¿Tienes ganas de hacer cosas?", opciones: ["A. Sí, me siento motivado/a", "B. No, me cuesta mucho levantarme", "C. No sé por dónde empezar", "D. A ratos sí, a ratos no", "E. Sí, pero estoy irritable y todo me molesta"] },
+  { pregunta: "¿Cómo reaccionas ante los demás hoy?", opciones: ["A. Con calma", "B. Me cuesta conectar", "C. Estoy muy a la defensiva", "D. Cambia según la persona", "E. Me irrita todo el mundo"] },
+  { pregunta: "¿Qué palabra te describe mejor ahora mismo?", opciones: ["A. Tranquilo/a", "B. Triste", "C. Ansioso/a", "D. Confundido/a", "E. Enojado/a"] },
+  { pregunta: "¿Cómo duermes últimamente?", opciones: ["A. Bien", "B. Duermo mucho o me cuesta levantarme", "C. Me cuesta dormir por pensar demasiado", "D. Me despierto seguido", "E. Me acuesto enojado/a o con tensión"] },
+  { pregunta: "¿Qué te preocupa más ahora mismo?", opciones: ["A. Nada en especial", "B. Sentirme solo/a o sin sentido", "C. Que algo salga mal", "D. No entenderme emocionalmente", "E. Que alguien me falte el respeto"] },
+  { pregunta: "¿Cómo manejas el estrés hoy?", opciones: ["A. Bien, con técnicas o calma", "B. Me encierro y me siento mal", "C. Me sobrecarga rápido", "D. Cambio de humor constantemente", "E. Reacciono con rabia o gritos"] },
+  { pregunta: "¿Qué te haría sentir mejor ahora mismo?", opciones: ["A. Nada, ya me siento bien", "B. Un abrazo o alguien que me escuche", "C. Saber que todo estará bajo control", "D. Poder aclarar mis pensamientos", "E. Sacar la rabia o gritar"] },
+  { pregunta: "¿Tu cuerpo te manda señales?", opciones: ["A. Me siento equilibrado/a", "B. Sí, estoy agotado/a", "C. Sí, tengo palpitaciones o tensión", "D. Sí, tengo náuseas o cambios físicos", "E. Sí, me arde el pecho o tengo dolor de cabeza"] },
+  { pregunta: "¿Qué haces cuando algo sale mal?", opciones: ["A. Me adapto y busco soluciones", "B. Me encierro emocionalmente", "C. Me estreso y quiero evitarlo", "D. Me confundo o me bloqueo", "E. Me enojo rápidamente"] }
 ];
 
 let respuestas = [];
@@ -77,24 +85,34 @@ function mostrarPregunta() {
     <div class="progress-bar"><div class="progress-fill" style="width:${progreso}%"></div></div>
     <h3>${p.pregunta}</h3>
     ${p.opciones.map((op, i) =>
-      `<button onclick="seleccionarRespuesta(${i})">${op}</button>`
+      `<button onclick="seleccionarRespuesta('${op[0]}')">${op}</button>`
     ).join('<br><br>')}
   `;
 }
 
-function seleccionarRespuesta(opcion) {
-  respuestas.push(preguntas[preguntaActual].opciones[opcion]);
+function seleccionarRespuesta(letra) {
+  respuestas.push(letra);
   preguntaActual++;
   mostrarPregunta();
 }
 
 function mostrarResultado() {
   const div = document.getElementById('test-emocional');
-  const emocion = respuestas.find(r => r.includes("😢") || r.includes("😰") || r.includes("😠") || r.includes("😨")) || "😊 Bien";
+  const conteo = { A: 0, B: 0, C: 0, D: 0, E: 0 };
+  respuestas.forEach(r => conteo[r]++);
+  const maxLetra = Object.keys(conteo).reduce((a, b) => conteo[a] > conteo[b] ? a : b);
+
+  const resultados = {
+    A: "🟢 Tranquilidad / Bienestar\nEstás en un momento de estabilidad emocional. Puede que haya pequeños altibajos, pero tenés recursos internos para gestionarlos.",
+    B: "🔵 Tristeza / Desánimo\nEstás atravesando una etapa de bajo estado de ánimo. Buscá apoyo emocional y permitite sentir sin juzgarte. El descanso, hablar con alguien o escribir lo que sentís puede ayudarte.",
+    C: "🟠 Ansiedad / Miedo\nEstás sintiendo incertidumbre o sobrecarga mental. Tu cuerpo está en alerta. Intentá técnicas de respiración o meditación y enfocate en el presente.",
+    D: "🟣 Confusión / Inestabilidad\nEstás experimentando muchas emociones al mismo tiempo. No es raro sentirse así. Un diario emocional o hablar con un profesional puede ayudarte a ordenar tus pensamientos.",
+    E: "🔴 Ira / Frustración\nEstás acumulando molestia o enojo, tal vez sin haberlo notado. Buscá formas sanas de liberar tensión: ejercicio físico, escribir, poner límites o expresar lo que sentís con respeto."
+  };
+
   div.innerHTML = `
-    <h3>Tu emoción actual parece ser:</h3>
-    <p style="font-size: 2rem;">${emocion}</p>
-    <p>Gracias por completar el test. Podés hacer una respiración guiada o registrar cómo te sentís en el calendario.</p>
+    <h3>Resultado del Test Emocional</h3>
+    <p style="white-space: pre-line">${resultados[maxLetra]}</p>
     <button onclick="reiniciarTest()">Repetir test</button>
   `;
 }
@@ -105,7 +123,9 @@ function reiniciarTest() {
   mostrarPregunta();
 }
 
-mostrarPregunta(); // Lanzamos al inicio
+// Iniciar test
+mostrarPregunta();
+
 
 // =======================
     // CALENDARIO EMOCIONAL MEJORADO
