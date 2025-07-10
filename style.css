@@ -60,6 +60,7 @@ header {
 .nav-pills a:hover {
   background: var(--cream);
 }
+
 .hero-fullscreen {
   position: relative;
   height: 100vh;
@@ -105,7 +106,8 @@ header {
   font-size: 3rem;
   color: white;
   text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
-    background: rgba(0, 0, 0, 0.1); /* negro con 10% de opacidad */
+  background: rgba(0, 0, 0, 0.1);
+  /* negro con 10% de opacidad */
   border-radius: 20px;
 }
 
@@ -114,8 +116,8 @@ header {
   color: #000000;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
   margin: 1rem 0 2rem;
-   text-align: center;
-     padding: 2rem;
+  text-align: center;
+  padding: 2rem;
   max-width: 800px;
 }
 
@@ -192,7 +194,8 @@ label {
   font-weight: 600;
 }
 
-input, textarea {
+input,
+textarea {
   width: 100%;
   padding: 0.8rem;
   border: 2px solid var(--primary-purple);
@@ -290,62 +293,62 @@ button:hover,
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
- /* Ejercicio de respiración animado */
-    #respiracion {
-      text-align: center;
-      margin-top: 3rem;
-      background: var(--white);
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 4px 15px var(--shadow);
-    }
+/* Ejercicio de respiración animado */
+#respiracion {
+  text-align: center;
+  margin-top: 3rem;
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px var(--shadow);
+}
 
-    .breathing-container {
-      position: relative;
-      width: 200px;
-      height: 200px;
-      margin: 2rem auto;
-    }
+.breathing-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 2rem auto;
+}
 
-    .breathing-circle {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--mint), var(--primary-purple));
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0.8;
-      transition: transform 4s ease-in-out;
-    }
+.breathing-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--mint), var(--primary-purple));
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+  transition: transform 4s ease-in-out;
+}
 
-    .breathing-circle.inhale {
-      transform: scale(1.5);
-    }
+.breathing-circle.inhale {
+  transform: scale(1.5);
+}
 
-    .breathing-circle.exhale {
-      transform: scale(0.7);
-    }
+.breathing-circle.exhale {
+  transform: scale(0.7);
+}
 
-    .breathing-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: var(--text-dark);
-      z-index: 10;
-    }
+.breathing-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--text-dark);
+  z-index: 10;
+}
 
-    #guia-respiracion {
-      margin-top: 1.5rem;
-      font-size: 1.4rem;
-      color: var(--primary-purple);
-      font-weight: bold;
-      min-height: 30px;
-    }
-  
+#guia-respiracion {
+  margin-top: 1.5rem;
+  font-size: 1.4rem;
+  color: var(--primary-purple);
+  font-weight: bold;
+  min-height: 30px;
+}
+
 
 /* Barra de progreso */
 .progress-bar {
@@ -356,199 +359,217 @@ button:hover,
   overflow: hidden;
   margin: 1rem 0;
 }
+
 .progress-fill {
   height: 100%;
   background: var(--primary-purple);
   transition: width 0.3s ease;
 }
+
 /* Calendario emocional mejorado */
-    .emotion-selector {
-      margin: 2rem 0;
-    }
+.emotion-selector {
+  margin: 2rem 0;
+}
 
-    .emotion-buttons {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 1rem;
-      margin: 1rem 0;
-    }
+.emotion-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
 
-    .emotion-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 1rem;
-      background: var(--white);
-      border: 2px solid var(--primary-purple);
-      border-radius: 15px;
-      transition: all 0.3s ease;
-      min-height: 80px;
-    }
+.emotion-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: var(--white);
+  border: 2px solid var(--primary-purple);
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  min-height: 80px;
+}
 
-    .emotion-btn:hover {
-      background: var(--cream);
-      transform: translateY(-2px);
-    }
+.emotion-btn:hover {
+  background: var(--cream);
+  transform: translateY(-2px);
+}
 
-    .emotion-btn.selected {
-      background: var(--primary-purple);
-      color: white;
-      border-color: var(--primary-purple);
-    }
+.emotion-btn.selected {
+  background: var(--primary-purple);
+  color: white;
+  border-color: var(--primary-purple);
+}
 
-    .emotion-icon {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
+.emotion-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
 
-    .emotion-label {
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
+.emotion-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
 
-    .notes-section {
-      margin: 2rem 0;
-    }
+.notes-section {
+  margin: 2rem 0;
+}
 
-    .notes-section label {
-      margin-bottom: 1rem;
-      font-weight: 600;
-    }
+.notes-section label {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
 
-    .save-section {
-      margin-top: 2rem;
-    }
+.save-section {
+  margin-top: 2rem;
+}
 
-    .save-btn {
-      background: var(--primary-purple);
-      color: white;
-      padding: 1rem 2rem;
-      border: none;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      width: 100%;
-      transition: all 0.3s ease;
-    }
+.save-btn {
+  background: var(--primary-purple);
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
+}
 
-    .save-btn:hover:not(:disabled) {
-      background: var(--peach);
-      transform: scale(1.02);
-    }
+.save-btn:hover:not(:disabled) {
+  background: var(--peach);
+  transform: scale(1.02);
+}
 
-    .save-btn:disabled {
-      background: var(--text-medium);
-      cursor: not-allowed;
-    }
+.save-btn:disabled {
+  background: var(--text-medium);
+  cursor: not-allowed;
+}
 
-    .success-message {
-      background: #d4edda;
-      color: #155724;
-      padding: 1rem;
-      border-radius: 10px;
-      margin-top: 1rem;
-      text-align: center;
-    }
+.success-message {
+  background: #d4edda;
+  color: #155724;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+  text-align: center;
+}
 
-    /* Sección de menstruación */
-    .menstrual-section {
-      background: var(--menstrual-color);
-      padding: 1.5rem;
-      border-radius: 15px;
-      margin: 2rem 0;
-    }
+/* Sección de menstruación */
+.menstrual-section {
+  background: var(--menstrual-color);
+  padding: 1.5rem;
+  border-radius: 15px;
+  margin: 2rem 0;
+}
 
-    .menstrual-toggle {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
+.menstrual-toggle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
 
-    .toggle-switch {
-      position: relative;
-      display: inline-block;
-      width: 60px;
-      height: 34px;
-    }
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
 
-    .toggle-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      transition: .4s;
-      border-radius: 34px;
-    }
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
 
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 26px;
-      width: 26px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: .4s;
-      border-radius: 50%;
-    }
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
 
-    input:checked + .slider {
-      background-color: #ff69b4;
-    }
+input:checked+.slider {
+  background-color: #ff69b4;
+}
 
-    input:checked + .slider:before {
-      transform: translateX(26px);
-    }
+input:checked+.slider:before {
+  transform: translateX(26px);
+}
 
-    .menstrual-info {
-      display: none;
-      margin-top: 1rem;
-    }
+.menstrual-info {
+  display: none;
+  margin-top: 1rem;
+}
 
-    .menstrual-info.active {
-      display: block;
-    }
+.menstrual-info.active {
+  display: block;
+}
 
-    .cycle-input {
-      margin: 1rem 0;
-    }
+.cycle-input {
+  margin: 1rem 0;
+}
 
-    .cycle-input label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
+.cycle-input label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
 
-    .cycle-input input {
-      width: 100%;
-      padding: 0.8rem;
-      border: 2px solid #ff69b4;
-      border-radius: 10px;
-      font-size: 1rem;
-      box-sizing: border-box;
-    }
+.cycle-input input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #ff69b4;
+  border-radius: 10px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
 
-    @media (max-width: 768px) {
-      .emotion-buttons {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .breathing-container {
-        width: 150px;
-        height: 150px;
-      }
-      
-      .hero-title {
-        font-size: 1.8rem;
-      }
-    } 
+@media (max-width: 768px) {
+  .emotion-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .breathing-container {
+    width: 150px;
+    height: 150px;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+}
+
+.cet-sticker img {
+  height: 35px;
+  width: auto;
+  border-radius: 10px;
+  background: white;
+  padding: 4px 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  vertical-align: middle;
+  margin-left: 6px;
+  transition: transform 0.3s ease;
+}
+
+.cet-sticker img:hover {
+  transform: scale(1.1);
+}
