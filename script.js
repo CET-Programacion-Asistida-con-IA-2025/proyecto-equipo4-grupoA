@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
   smoothScroll();
   setupContactForm();
 });
-// Menú lateral toggle
 document.addEventListener('DOMContentLoaded', () => {
   const menuBtn = document.getElementById('menu-toggle');
   const closeBtn = document.getElementById('close-menu');
@@ -17,6 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   closeBtn.addEventListener('click', () => {
     sideNav.classList.remove('show');
+  });
+
+  // Para cerrar el menú al hacer clic en un enlace
+  document.querySelectorAll('.side-nav a').forEach(link => {
+    link.addEventListener('click', () => {
+      sideNav.classList.remove('show');
+    });
   });
 });
 
