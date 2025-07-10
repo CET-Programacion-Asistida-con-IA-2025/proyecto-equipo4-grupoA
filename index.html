@@ -11,27 +11,36 @@
 <body>
 
   <header id="header">
-    <div class="container">
-      <h1 class="logo"> Gestión Emocional</h1>
-  
-      <p class="subtitle">Reconocé tus emociones, aprendé a gestionarlas</p>
-      <nav class="nav-pills">
-        <a href="#inicio">Inicio</a>
-        <a href="#herramientas">Herramientas</a>
-        <a href="#educacion">Aprende</a>
-        <a href="#extras">Extras</a>
-        <a href="#contacto">Contacto</a>
-      </nav>
+  <button id="menu-toggle" class="menu-button">☰</button>
+  <nav class="side-nav" id="side-nav">
+    <div class="nav-header">
+      <h2 class="logo">Gestión Emocional</h2>
+      <button id="close-menu" class="close-button">✖</button>
     </div>
-  </header>
+    <p class="subtitle">Reconocé tus emociones, aprendé a gestionarlas</p>
+    <a href="#inicio">Inicio</a>
+    <a href="#herramientas">Herramientas</a>
+    <a href="#extras">Extras</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
 
   <main class="container">
     <!-- Inicio -->
-    <section id="inicio" class="hero-section">
-      <h2 class="hero-title">Tu bienestar emocional importa</h2>
-      <p class="hero-text">Un espacio seguro y accesible para identificar, comprender y gestionar tus emociones. Especialmente diseñado para personas neurodivergentes y quienes buscan apoyo emocional.</p>
-      <a href="#herramientas" class="cta-button">Comenzar ahora</a>
-    </section>
+   <section id="inicio" class="hero-fullscreen">
+  <div class="carousel">
+    <img src="imagen 1.png" class="carousel-image active" alt="Imagen 1">
+    <img src="imagen 2.png" class="carousel-image" alt="Imagen 2">
+    <img src="imagen 1.png" class="carousel-image" alt="Imagen 3">
+    <img src="imagen 2.png" class="carousel-image" alt="Imagen 4">
+  </div>
+
+  <div class="hero-content">
+    <h2 class="hero-title">Tu bienestar emocional importa</h2>
+    <p class="hero-text">Un espacio seguro y accesible para identificar, comprender y gestionar tus emociones.</p>
+    <a href="#herramientas" class="cta-button">Comenzar ahora</a>
+  </div>
+</section>
 
     <!-- Herramientas Interactivas -->
     <section id="herramientas">
@@ -42,11 +51,7 @@
       <div id="respiracion"></div>
     </section>
 
-    <!-- Información Educativa -->
-    <section id="educacion">
-      <h2 class="section-title">Información Educativa</h2>
-      <div id="educacion-contenido"></div>
-    </section>
+   
 
     <!-- Extras -->
     <section id="extras">
@@ -59,28 +64,41 @@
     </section>
 
     <!-- Contacto -->
-    <section id="contacto">
-      <h2 class="section-title">Contacto</h2>
-      <form id="contacto-form" class="contact-form">
-        <div class="form-group">
-          <label for="nombre">Nombre</label>
-          <input type="text" id="nombre" required />
-        </div>
-        <div class="form-group">
-          <label for="mensaje">Mensaje</label>
-          <textarea id="mensaje" rows="4" required></textarea>
-        </div>
-        <button type="submit" class="form-submit">Enviar</button>
-      </form>
-    </section>
-  </main>
-
-  <footer>
-    <div class="footer-content">
-      <p>&copy; 2025 Gestión Emocional</p>
-      <p>Con amor por la salud mental </p>
+<section id="contacto">
+  <h2 class="section-title">¿Querés hablar con nosotras?</h2>
+  <div class="contact-wrapper">
+    <div class="contact-info">
+      <p>💌 Estamos acá para escucharte.</p>
+      <p>Podés enviarnos tus dudas, sugerencias o simplemente contarnos cómo te sentís.</p>
+      <p>Respondemos con cariño y respeto.</p>
     </div>
-  </footer>
+
+    <form id="contacto-form" class="contact-form">
+      <div class="form-group">
+        <label for="nombre">Tu nombre</label>
+        <input type="text" id="nombre" placeholder="¿Cómo te llamás?" required />
+      </div>
+      <div class="form-group">
+        <label for="mensaje">Tu mensaje</label>
+        <textarea id="mensaje" rows="4" placeholder="Contanos lo que quieras 💜" required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Enviar mensaje</button>
+    </form>
+  </div>
+</section>
+
+ <footer>
+  <div class="footer-content">
+    <p>&copy; 2025 Gestión Emocional</p>
+    <p>Hecho con amor por Fabiana Motta, Juana y Mariana Rojas</p>
+    <p>Este es un proyecto de 
+      <span class="cet-sticker">
+        <img src="cet-logo.png" alt="CET" />
+      </span>
+    </p>
+  </div>
+</footer>
+
 
   <!-- Botón fijo de emergencia -->
   <button class="emergency-btn" onclick="showEmergencyContacts()">🚨 Ayuda Urgente</button>
