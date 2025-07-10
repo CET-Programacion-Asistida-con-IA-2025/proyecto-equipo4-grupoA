@@ -5,6 +5,20 @@ document.addEventListener('DOMContentLoaded', () => {
   smoothScroll();
   setupContactForm();
 });
+// Menú lateral toggle
+document.addEventListener('DOMContentLoaded', () => {
+  const menuBtn = document.getElementById('menu-toggle');
+  const closeBtn = document.getElementById('close-menu');
+  const sideNav = document.getElementById('side-nav');
+
+  menuBtn.addEventListener('click', () => {
+    sideNav.classList.add('show');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    sideNav.classList.remove('show');
+  });
+});
 
 // ----------------------
 // Scroll suave navegación
