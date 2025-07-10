@@ -481,3 +481,17 @@ function buscarProfesionales() {
   `;
   showNotification("Resultados simulados cargados");
 }
+function iniciarCarrusel() {
+  const imagenes = document.querySelectorAll('.carousel-image');
+  let index = 0;
+
+  setInterval(() => {
+    imagenes[index].classList.remove('active');
+    index = (index + 1) % imagenes.length;
+    imagenes[index].classList.add('active');
+  }, 4000);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  iniciarCarrusel();
+});
