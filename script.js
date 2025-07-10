@@ -420,24 +420,167 @@ mostrarPregunta();
       }, 5000);
     }
 
-// =======================
-// YOGA Y SONIDOS
+// // =======================
+// YOGA Y SONIDOS MEJORADOS
 // =======================
 const yoga = document.getElementById('yoga-sonidos');
+let sonidoActual = null;
+let audioElements = {};
+
 if (yoga) {
-  yoga.innerHTML = `
-    <h3>Sonidos relajantes</h3>
-    <button onclick="reproducirSonido('🌧️ Lluvia')">Lluvia</button>
-    <button onclick="reproducirSonido('🌊 Mar')">Mar</button>
-    <button onclick="reproducirSonido('🌲 Bosque')">Bosque</button>
-    <button onclick="reproducirSonido('🎵 Instrumental')">Instrumental</button>
-    <p id="sonido-actual"></p>
-  `;
+    yoga.innerHTML = `
+        <h3>🎵 Sonidos relajantes</h3>
+        <p>Selecciona un sonido para relajarte y concentrarte</p>
+        <div class="sound-controls">
+            <button class="sound-btn" onclick="toggleSonido('lluvia')">
+                <span class="sound-icon">🌧️</span>
+                <span class="sound-name">Lluvia</span>
+            </button>
+            <button class="sound-btn" onclick="toggleSonido('mar')">
+                <span class="sound-icon">🌊</span>
+                <span class="sound-name">Mar</span>
+            </button>
+            <button class="sound-btn" onclick="toggleSonido('bosque')">
+                <span class="sound-icon">🌲</span>
+                <span class="sound-name">Bosque</span>
+            </button>
+            <button class="sound-btn" onclick="toggleSonido('instrumental')">
+                <span class="sound-icon">🎼</span>
+                <span class="sound-name">Instrumental</span>
+            </button>
+        </div>
+        <div class="sound-status" id="sound-status">
+            <span>🔇</span> Selecciona un sonido para comenzar
+        </div>
+    `;
+    
+    // Inicializar elementos de audio
+    inicializarAudios();
 }
 
-function reproducirSonido(nombre) {
-  document.getElementById('sonido-actual').textContent = `🔊 Reproduciendo: ${nombre} (simulado)`;
-  showNotification(`Reproduciendo ${nombre}`);
+function inicializarAudios() {
+    const sonidos = {
+        'lluvia': {
+            nombre: '🌧️ Lluvia',
+            // Simulamos con un tono generado
+            frecuencia: 200,
+            tipo: 'rain'
+        },
+        'mar': {
+            nombre: '🌊 Mar',
+            frecuencia: 150,
+            tipo: 'ocean'
+        },
+        'bosque': {
+            nombre: '🌲 Bosque',
+            frecuencia: 300,
+            tipo: 'forest'
+        },
+        'instrumental': {
+            nombre: '🎼 Instrumental',
+            frecuencia: 440,
+            tipo: 'music'
+        }
+    };
+    
+    // Crear contexto de audio para sonidos simples
+    if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
+        const AudioContextClass = AudioContext || webkitAudioContext;
+        const audioContext = new AudioContextClass();
+        
+        Object.keys(sonidos).forEach(key => {
+            audioElements[key] = {
+                context: audioContext,
+                oscillator: null,
+                gainNode: null,
+                info: sonidos[key]
+            };
+        });
+    }
+}
+
+function toggleSonido(tipo) {
+    const statusDiv = document.getElementById('sound-status');
+    const botones = document.querySelectorAll('.sound-btn');
+    const botonActual = document.querySelector(`[onclick="toggleSonido('${tipo}')"]`);
+    
+    // Detener sonido actual si existe
+    if (sonidoActual && sonidoActual !== tipo) {
+        detenerSonido(sonidoActual);
+    }
+    
+    if (sonidoActual === tipo) {
+        // Detener sonido actual
+        detenerSonido(tipo);
+        sonidoActual = null;
+        statusDiv.innerHTML = '<span>🔇</span> Selecciona un sonido para comenzar';
+        
+        // Remover clase playing de todos los botones
+        botones.forEach(btn => btn.classList.remove('playing'));
+    } else {
+        // Reproducir nuevo sonido
+        reproducirSonido(tipo);
+        sonidoActual = tipo;
+        statusDiv.innerHTML = `<span>🔊</span> Reproduciendo: ${audioElements[tipo].info.nombre}`;
+        
+        // Remover clase playing de todos los botones y agregar al actual
+        botones.forEach(btn => btn.classList.remove('playing'));
+        botonActual.classList.add('playing');
+    }
+}
+
+function reproducirSonido(tipo) {
+    if (!audioElements[tipo] || !audioElements[tipo].context) {
+        // Fallback: mostrar mensaje simulado
+        showNotification(`🎵 Reproduciendo ${tipo} (simulado)`);
+        return;
+    }
+    
+    const audio = audioElements[tipo];
+    const ctx = audio.context;
+    
+    // Crear oscillador y gain
+    audio.oscillator = ctx.createOscillator();
+    audio.gainNode = ctx.createGain();
+    
+    // Configurar según el tipo de sonido
+    switch (tipo) {
+        case 'lluvia':
+            audio.oscillator.type = 'white';
+            audio.oscillator.frequency.setValueAtTime(200, ctx.currentTime);
+            audio.gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
+            break;
+        case 'mar':
+            audio.oscillator.type = 'sine';
+            audio.oscillator.frequency.setValueAtTime(150, ctx.currentTime);
+            audio.gainNode.gain.setValueAtTime(0.15, ctx.currentTime);
+            break;
+        case 'bosque':
+            audio.oscillator.type = 'triangle';
+            audio.oscillator.frequency.setValueAtTime(300, ctx.currentTime);
+            audio.gainNode.gain.setValueAtTime(0.08, ctx.currentTime);
+            break;
+        case 'instrumental':
+            audio.oscillator.type = 'sine';
+            audio.oscillator.frequency.setValueAtTime(440, ctx.currentTime);
+            audio.gainNode.gain.setValueAtTime(0.12, ctx.currentTime);
+            break;
+    }
+    
+    // Conectar nodos
+    audio.oscillator.connect(audio.gainNode);
+    audio.gainNode.connect(ctx.destination);
+    
+    // Iniciar sonido
+    audio.oscillator.start();
+}
+
+function detenerSonido(tipo) {
+    if (audioElements[tipo] && audioElements[tipo].oscillator) {
+        audioElements[tipo].oscillator.stop();
+        audioElements[tipo].oscillator = null;
+        audioElements[tipo].gainNode = null;
+    }
 }
 
 // =======================
@@ -480,4 +623,206 @@ function buscarProfesionales() {
     </ul>
   `;
   showNotification("Resultados simulados cargados");
+}// =======================
+// CHECKLIST DE HÁBITOS DIARIOS
+// =======================
+const checklist = document.getElementById('checklist-habitos');
+let habitosData = {
+    horasSueno: 8,
+    litrosAgua: 2,
+    horasRedes: 2,
+    cosasNuevas: [],
+    cosasNoHice: [],
+    completado: false
+};
+
+if (checklist) {
+    checklist.innerHTML = `
+        <h3>📝 Checklist de hábitos diarios</h3>
+        <p>Registra tus hábitos para mantener un estilo de vida saludable</p>
+        
+        <div class="habit-item" id="habit-sueno">
+            <div class="habit-header">
+                <div class="habit-checkbox" onclick="toggleHabit('sueno')"></div>
+                <div class="habit-title">💤 Horas de sueño</div>
+            </div>
+            <div class="habit-controls">
+                <span class="habit-label">Dormí:</span>
+                <input type="number" class="habit-input" id="input-sueno" value="8" min="0" max="24" onchange="updateHabit('sueno', this.value)">
+                <span class="habit-label">horas</span>
+            </div>
+        </div>
+        
+        <div class="habit-item" id="habit-agua">
+            <div class="habit-header">
+                <div class="habit-checkbox" onclick="toggleHabit('agua')"></div>
+                <div class="habit-title">💧 Hidratación</div>
+            </div>
+            <div class="habit-controls">
+                <span class="habit-label">Tomé:</span>
+                <div class="habit-slider">
+                    <input type="range" id="slider-agua" min="0" max="5" step="0.5" value="2" onchange="updateHabit('agua', this.value)">
+                </div>
+                <div class="habit-value" id="value-agua">2L</div>
+            </div>
+        </div>
+        
+        <div class="habit-item" id="habit-redes">
+            <div class="habit-header">
+                <div class="habit-checkbox" onclick="toggleHabit('redes')"></div>
+                <div class="habit-title">📱 Tiempo en redes sociales</div>
+            </div>
+            <div class="habit-controls">
+                <span class="habit-label">Estuve:</span>
+                <div class="habit-slider">
+                    <input type="range" id="slider-redes" min="0" max="12" step="0.5" value="2" onchange="updateHabit('redes', this.value)">
+                </div>
+                <div class="habit-value" id="value-redes">2h</div>
+            </div>
+        </div>
+        
+        <div class="habit-item" id="habit-nuevas">
+            <div class="habit-header">
+                <div class="habit-checkbox" onclick="toggleHabit('nuevas')"></div>
+                <div class="habit-title">✨ Cosas nuevas que hice</div>
+            </div>
+            <div class="habit-controls">
+                <input type="text" class="habit-input" id="input-nuevas" placeholder="Ej: Leí un libro nuevo" style="width: 100%; margin-top: 1rem;">
+                <button onclick="addNewThing()" style="margin-top: 0.5rem;">Agregar</button>
+            </div>
+            <div id="list-nuevas" class="habit-list"></div>
+        </div>
+        
+        <div class="habit-item" id="habit-no-hice">
+            <div class="habit-header">
+                <div class="habit-checkbox" onclick="toggleHabit('no-hice')"></div>
+                <div class="habit-title">❌ Cosas que no pude hacer</div>
+            </div>
+            <div class="habit-controls">
+                <input type="text" class="habit-input" id="input-no-hice" placeholder="Ej: Hacer ejercicio" style="width: 100%; margin-top: 1rem;">
+                <button onclick="addNotDoneThing()" style="margin-top: 0.5rem;">Agregar</button>
+            </div>
+            <div id="list-no-hice" class="habit-list"></div>
+        </div>
+        
+        <div class="habits-summary" id="habits-summary">
+            <div class="summary-title">📊 Resumen del día</div>
+            <div class="summary-stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="stat-sueno">8</span>
+                    <span class="stat-label">horas dormidas</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="stat-agua">2</span>
+                    <span class="stat-label">litros de agua</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="stat-redes">2</span>
+                    <span class="stat-label">horas en redes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="stat-nuevas">0</span>
+                    <span class="stat-label">cosas nuevas</span>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function toggleHabit(tipo) {
+    const habitItem = document.getElementById(`habit-${tipo}`);
+    const checkbox = habitItem.querySelector('.habit-checkbox');
+    
+    if (checkbox.classList.contains('checked')) {
+        checkbox.classList.remove('checked');
+        checkbox.textContent = '';
+        habitItem.classList.remove('completed');
+    } else {
+        checkbox.classList.add('checked');
+        checkbox.textContent = '✓';
+        habitItem.classList.add('completed');
+    }
+    
+    updateSummary();
+}
+
+function updateHabit(tipo, valor) {
+    habitosData[tipo === 'sueno' ? 'horasSueno' : tipo === 'agua' ? 'litrosAgua' : 'horasRedes'] = parseFloat(valor);
+    
+    if (tipo === 'agua') {
+        document.getElementById('value-agua').textContent = valor + 'L';
+        document.getElementById('stat-agua').textContent = valor;
+    } else if (tipo === 'redes') {
+        document.getElementById('value-redes').textContent = valor + 'h';
+        document.getElementById('stat-redes').textContent = valor;
+    } else if (tipo === 'sueno') {
+        document.getElementById('stat-sueno').textContent = valor;
+    }
+    
+    updateSummary();
+}
+
+function addNewThing() {
+    const input = document.getElementById('input-nuevas');
+    const list = document.getElementById('list-nuevas');
+    
+    if (input.value.trim()) {
+        habitosData.cosasNuevas.push(input.value.trim());
+        
+        const item = document.createElement('div');
+        item.className = 'habit-list-item';
+        item.innerHTML = `
+            <span>✨ ${input.value.trim()}</span>
+            <button onclick="removeItem(this, 'nuevas')" style="margin-left: 1rem; padding: 0.2rem 0.5rem; font-size: 0.8rem;">❌</button>
+        `;
+        list.appendChild(item);
+        
+        input.value = '';
+        document.getElementById('stat-nuevas').textContent = habitosData.cosasNuevas.length;
+        updateSummary();
+    }
+}
+
+function addNotDoneThing() {
+    const input = document.getElementById('input-no-hice');
+    const list = document.getElementById('list-no-hice');
+    
+    if (input.value.trim()) {
+        habitosData.cosasNoHice.push(input.value.trim());
+        
+        const item = document.createElement('div');
+        item.className = 'habit-list-item';
+        item.innerHTML = `
+            <span>❌ ${input.value.trim()}</span>
+            <button onclick="removeItem(this, 'no-hice')" style="margin-left: 1rem; padding: 0.2rem 0.5rem; font-size: 0.8rem;">🗑️</button>
+        `;
+        list.appendChild(item);
+        
+        input.value = '';
+        updateSummary();
+    }
+}
+
+function removeItem(button, tipo) {
+    const item = button.parentElement;
+    const texto = item.querySelector('span').textContent.replace('✨ ', '').replace('❌ ', '');
+    
+    if (tipo === 'nuevas') {
+        habitosData.cosasNuevas = habitosData.cosasNuevas.filter(cosa => cosa !== texto);
+        document.getElementById('stat-nuevas').textContent = habitosData.cosasNuevas.length;
+    } else {
+        habitosData.cosasNoHice = habitosData.cosasNoHice.filter(cosa => cosa !== texto);
+    }
+    
+    item.remove();
+    updateSummary();
+}
+
+function updateSummary() {
+    const completedHabits = document.querySelectorAll('.habit-checkbox.checked').length;
+    const totalHabits = document.querySelectorAll('.habit-checkbox').length;
+    
+    if (completedHabits === totalHabits) {
+        showNotification('¡Felicitaciones! Completaste todos los hábitos del día 🎉');
+    }
 }
