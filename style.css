@@ -41,12 +41,12 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Menú lateral */
 .side-nav {
   position: fixed;
   top: 0;
-  left: -260px;
-  width: 260px;
+  left: 0;
+  width: 100%;
+  max-width: 260px;
   height: 100vh;
   background: var(--primary-purple);
   color: white;
@@ -54,9 +54,15 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  transition: left 0.3s ease;
+  transition: transform 0.3s ease;
+  transform: translateX(-100%);
   z-index: 1000;
 }
+
+.side-nav.show {
+  transform: translateX(0);
+}
+
 
 .side-nav.show {
   left: 0;
