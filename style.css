@@ -558,6 +558,52 @@ input:checked+.slider:before {
   }
 }
 
+.contact-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
+
+.contact-info {
+  flex: 1;
+  min-width: 250px;
+  background: var(--cream);
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px var(--shadow);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-medium);
+}
+
+.contact-info p {
+  margin-bottom: 1rem;
+}
+
+.contact-form {
+  flex: 1;
+  min-width: 300px;
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px var(--shadow);
+}
+
+@media (max-width: 768px) {
+  .contact-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contact-info,
+  .contact-form {
+    width: 100%;
+  }
+}
+
 .cet-sticker img {
   height: 35px;
   width: auto;
