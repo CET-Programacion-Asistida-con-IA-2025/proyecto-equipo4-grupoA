@@ -616,6 +616,256 @@ input:checked+.slider:before {
   box-sizing: border-box;
 }
 
+<<<<<<< HEAD
+    @media (max-width: 768px) {
+      .emotion-buttons {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .breathing-container {
+        width: 150px;
+        height: 150px;
+      }
+      
+      .hero-title {
+        font-size: 1.8rem;
+      }
+    } /* Sonidos mejorados */
+#yoga-sonidos {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px var(--shadow);
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.sound-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.sound-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 1rem;
+    background: linear-gradient(135deg, var(--mint), var(--primary-purple));
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.sound-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.sound-btn.playing {
+    background: linear-gradient(135deg, var(--peach), var(--yellow));
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.sound-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.sound-name {
+    font-size: 1rem;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.sound-status {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255,255,255,0.2);
+    border-radius: 15px;
+    font-size: 0.9rem;
+}
+
+/* Checklist de hábitos */
+#checklist-habitos {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px var(--shadow);
+    margin: 2rem 0;
+}
+
+.habit-item {
+    background: var(--cream);
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-radius: 15px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.habit-item:hover {
+    border-color: var(--primary-purple);
+    transform: translateY(-2px);
+}
+
+.habit-item.completed {
+    background: linear-gradient(135deg, var(--mint), var(--sage));
+    border-color: var(--primary-purple);
+}
+
+.habit-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.habit-checkbox {
+    width: 25px;
+    height: 25px;
+    border: 3px solid var(--primary-purple);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.habit-checkbox.checked {
+    background: var(--primary-purple);
+    color: white;
+}
+
+.habit-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    flex-grow: 1;
+}
+
+.habit-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.habit-input {
+    padding: 0.5rem;
+    border: 2px solid var(--primary-purple);
+    border-radius: 10px;
+    font-size: 1rem;
+    width: 80px;
+    text-align: center;
+}
+
+.habit-label {
+    font-weight: 500;
+    color: var(--text-medium);
+}
+
+.habit-slider {
+    flex-grow: 1;
+    margin: 0 1rem;
+}
+
+.habit-slider input[type="range"] {
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: var(--cream);
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.habit-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-purple);
+    cursor: pointer;
+}
+
+.habit-value {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--primary-purple);
+    min-width: 60px;
+    text-align: center;
+}
+
+.habits-summary {
+    background: linear-gradient(135deg, var(--primary-purple), var(--mint));
+    color: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.summary-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.summary-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+}
+
+.stat-item {
+    background: rgba(255,255,255,0.2);
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: block;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .sound-controls {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .habit-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .habit-slider {
+        margin: 0.5rem 0;
+    }
+    
+    .summary-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+=======
 @media (max-width: 768px) {
   .emotion-buttons {
     grid-template-columns: repeat(2, 1fr);
@@ -691,4 +941,5 @@ input:checked+.slider:before {
 
 .cet-sticker img:hover {
   transform: scale(1.1);
+>>>>>>> 5842b27b9023a4e3952da7df4a894d38f6a9c7a5
 }
