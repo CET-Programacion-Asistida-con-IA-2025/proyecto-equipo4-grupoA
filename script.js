@@ -5,26 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
   smoothScroll();
   setupContactForm();
 });
-document.addEventListener('DOMContentLoaded', () => {
-  const menuBtn = document.getElementById('menu-toggle');
-  const closeBtn = document.getElementById('close-menu');
-  const sideNav = document.getElementById('side-nav');
-
-  menuBtn.addEventListener('click', () => {
-    sideNav.classList.add('show');
-  });
-
-  closeBtn.addEventListener('click', () => {
-    sideNav.classList.remove('show');
-  });
-
-  // Para cerrar el menú al hacer clic en un enlace
-  document.querySelectorAll('.side-nav a').forEach(link => {
-    link.addEventListener('click', () => {
-      sideNav.classList.remove('show');
-    });
-  });
-});
 
 // ----------------------
 // Scroll suave navegación
@@ -440,7 +420,7 @@ mostrarPregunta();
       }, 5000);
     }
 
-// // =======================
+// =======================
 // YOGA Y SONIDOS MEJORADOS
 // =======================
 const yoga = document.getElementById('yoga-sonidos');
@@ -643,7 +623,6 @@ function buscarProfesionales() {
     </ul>
   `;
   showNotification("Resultados simulados cargados");
-<<<<<<< HEAD
 }// =======================
 // CHECKLIST DE HÁBITOS DIARIOS
 // =======================
@@ -847,20 +826,3 @@ function updateSummary() {
         showNotification('¡Felicitaciones! Completaste todos los hábitos del día 🎉');
     }
 }
-=======
-}
-function iniciarCarrusel() {
-  const imagenes = document.querySelectorAll('.carousel-image');
-  let index = 0;
-
-  setInterval(() => {
-    imagenes[index].classList.remove('active');
-    index = (index + 1) % imagenes.length;
-    imagenes[index].classList.add('active');
-  }, 4000);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  iniciarCarrusel();
-});
->>>>>>> 5842b27b9023a4e3952da7df4a894d38f6a9c7a5
