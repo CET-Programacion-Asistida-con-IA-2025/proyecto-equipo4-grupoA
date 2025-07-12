@@ -840,3 +840,20 @@ function iniciarCarrusel() {
 document.addEventListener('DOMContentLoaded', () => {
   iniciarCarrusel();
 });
+document.addEventListener('DOMContentLoaded', () => {
+  const menuBtn = document.getElementById('menu-toggle');
+  const nav = document.getElementById('side-nav');
+
+  // Alternar el menú al tocar el botón ☰
+  menuBtn.addEventListener('click', () => {
+    nav.classList.toggle('open');
+  });
+
+  // Cerrar el menú al tocar cualquier enlace
+  const links = nav.querySelectorAll('a');
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+    });
+  });
+});

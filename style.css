@@ -111,14 +111,12 @@ header {
 
 .hero-content .hero-text {
   font-size: 1.3rem;
-  color: #f0f0f0;
+  color: #525252;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
   margin: 1rem 0 2rem;
    text-align: center;
      padding: 2rem;
   max-width: 800px;
-    background: rgba(0, 0, 0, 0.1); /* negro con 10% de opacidad */
-  border-radius: 20px;
 }
 
 .hero-content .cta-button {
@@ -789,4 +787,52 @@ button:hover,
     .summary-stats {
         grid-template-columns: repeat(2, 1fr);
     }
+}
+.side-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 250px;
+  background: linear-gradient(135deg, var(--primary-purple), var(--mint));
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  padding: 2rem 1rem;
+  box-shadow: 4px 0 15px var(--shadow);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.side-nav.open {
+  transform: translateX(0);
+}
+
+.side-nav a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.side-nav a:hover {
+  color: var(--peach);
+}
+
+.menu-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+}
+
+.close-button {
+  align-self: flex-end;
+  margin-bottom: 2rem;
+  color: white;
+  background: transparent;
+  font-size: 1.5rem;
 }
