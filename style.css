@@ -60,6 +60,73 @@ header {
 .nav-pills a:hover {
   background: var(--cream);
 }
+.hero-fullscreen {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero-fullscreen .carousel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+.carousel-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.carousel-image.active {
+  opacity: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hero-content .hero-title {
+  font-size: 3rem;
+  color: white;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.1); /* negro con 10% de opacidad */
+  border-radius: 20px;
+}
+
+.hero-content .hero-text {
+  font-size: 1.3rem;
+  color: #f0f0f0;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  margin: 1rem 0 2rem;
+   text-align: center;
+     padding: 2rem;
+  max-width: 800px;
+    background: rgba(0, 0, 0, 0.1); /* negro con 10% de opacidad */
+  border-radius: 20px;
+}
+
+.hero-content .cta-button {
+  background: var(--peach);
+  color: var(--text-dark);
+  font-weight: bold;
+  border-radius: 30px;
+}
 
 .hero-section {
   background: var(--cream);
